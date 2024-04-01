@@ -242,7 +242,7 @@ class YouTubeAPI:
         loop = asyncio.get_running_loop()
 
      def audio_dl():
-    ydl_opts = {
+         ydl_opts = {
         "format": "bestaudio/best",
         "postprocessors": [{
             'key': 'FFmpegExtractAudio',
