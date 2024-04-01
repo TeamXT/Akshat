@@ -241,22 +241,27 @@ class YouTubeAPI:
             link = self.base + link
         loop = asyncio.get_running_loop()
 
-        def audio_dl():
-            ydl_optssx = {
-                "format": "bestaudio/best",
-                "outtmpl": "downloads/%(id)s.%(ext)s",
-                "geo_bypass": True,
-                "nocheckcertificate": True,
-                "quiet": True,
-                "no_warnings": True,
-            }
-            x = yt_dlp.YoutubeDL(ydl_optssx)
-            info = x.extract_info(link, False)
-            xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
-            if os.path.exists(xyz):
-                return xyz
-            x.download([link])
-            return xyz
+     def audio_dl(link):
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "postprocessors": [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',  # Targeting mp3 for compatibility
+            'preferredquality': '320',  # Adjust bitrate here as needed (320 is very high quality)
+        }],
+        "outtmpl": "downloads/%(id)s.%(ext)s",
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "quiet": True,
+        "no_warnings": True,
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(link, download=False)
+        file_path = os.path.join("downloads", f"{info['id']}.mp3")  # Assuming mp3 conversion
+        if not os.path.exists(xyz):
+            ydl.download([link])
+        return xyz
+
 
         def video_dl():
             ydl_optssx = {
