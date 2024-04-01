@@ -241,7 +241,7 @@ class YouTubeAPI:
             link = self.base + link
         loop = asyncio.get_running_loop()
 
-     def audio_dl(link):
+     def audio_dl():
     ydl_opts = {
         "format": "bestaudio/best",
         "postprocessors": [{
