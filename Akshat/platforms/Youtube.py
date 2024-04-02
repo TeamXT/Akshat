@@ -2,6 +2,8 @@ import asyncio
 import os
 import re
 from typing import Union
+from pytgcalls.types.input_stream import InputStream
+from pytgcalls.types.input_stream import InputAudioStream
 
 import yt_dlp
 from pyrogram.enums import MessageEntityType
@@ -241,7 +243,7 @@ class YouTubeAPI:
             link = self.base + link
         loop = asyncio.get_running_loop()
 
-      def audio_dl():
+        def audio_dl():
             ydl_optssx = {
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
@@ -257,7 +259,6 @@ class YouTubeAPI:
                 return xyz
             x.download([link])
             return xyz
-
 
         def video_dl():
             ydl_optssx = {
